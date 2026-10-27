@@ -1,0 +1,181 @@
+:root {
+  --bg: #101a2c;
+  --text: #f3ead8;
+  --accent: #e76f35;
+  --gold: #f2b56b;
+  --muted: #aeb3bc;
+  --red: #c41326;
+  --gutter: 16px;
+  --radius: 8px;
+  --sans: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --serif: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+.album {
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 48px;
+}
+
+/* 1. 表紙 */
+.cover {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  /* 画像が無いときの代わりの背景 */
+  background: linear-gradient(160deg, #2a3a5c 0%, #101a2c 55%, #3a2418 100%);
+  overflow: hidden;
+}
+.cover-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(16, 26, 44, 0) 35%, rgba(16, 26, 44, 0.92) 100%);
+}
+.cover-text {
+  position: relative;
+  z-index: 1;
+  padding: 0 var(--gutter) 56px;
+}
+.cover-title {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 40px;
+  line-height: 1.25;
+  margin: 0 0 12px;
+}
+.cover-sub {
+  color: var(--gold);
+  font-size: 17px;
+  margin: 0 0 20px;
+}
+.cover-meta {
+  display: flex;
+  gap: 16px;
+  color: var(--muted);
+  font-size: 16px;
+  margin: 0;
+}
+
+/* 2〜6. 各日 */
+.day {
+  padding: 48px var(--gutter) 0;
+}
+.day-title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 24px;
+  margin: 0 0 16px;
+  padding-left: 12px;
+  border-left: 4px solid var(--gold);
+}
+.photo {
+  margin: 0 0 16px;
+  aspect-ratio: 3 / 2;
+  border-radius: var(--radius);
+  overflow: hidden;
+  /* 画像が無いときの代わりの背景 */
+  background: linear-gradient(135deg, #3b4a6b 0%, #1d2a44 60%, #5a3a22 100%);
+}
+.photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 8. 最後の問い */
+.closing {
+  padding: 72px var(--gutter) 24px;
+  text-align: center;
+}
+.closing-note {
+  font-family: var(--serif);
+  color: var(--muted);
+  font-size: 16px;
+  margin: 0;
+}
+
+/* 9. ボタン */
+.share {
+  padding: 24px var(--gutter) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.btn {
+  appearance: none;
+  width: 100%;
+  min-height: 52px;
+  border-radius: 999px;
+  font-family: var(--sans);
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+}
+.btn-primary:active { filter: brightness(0.9); }
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--muted);
+}
+.copy-fallback label {
+  display: block;
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+.copy-fallback input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--muted);
+  background: #1a2640;
+  color: var(--text);
+}
+
+/* スクロールで ふわっと表示 */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
